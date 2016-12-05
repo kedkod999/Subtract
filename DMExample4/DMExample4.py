@@ -20,37 +20,49 @@ def generateBoxGeometry(feature,fct):
 	
 	bodies = []
 	bodies1 = []
+	bodies2 = []
+	#builder1 = ExtAPI.DataModel.GeometryBuilder
+	#squarePri1 = builder1.Primitives.Sheet.CreatePolygon([0.,0.,0.,1.,0.,0.,1.,1.,0.,0.,1.,0.])
+	#squareBody1 = squarePri1.Generate()
+	#extrudeOperation1 = builder1.Operations.CreateExtrudeOperation([0.,0.,-1.],10.)
+	#bodies = extrudeOperation1.ApplyTo(squareBody1)
+	#feature.Bodies = bodies
+	#feature.MaterialType = MaterialTypeEnum.Freeze
+	
+	#builder = ExtAPI.DataModel.GeometryBuilder
+	#squarePri = builder.Primitives.Sheet.CreatePolygon([0.,0.,0.,3.,0.,0.,3.,3.,0.,0.,3.,0.])
+	#squareBody = squarePri.Generate()
+	#extrudeOperation = builder.Operations.CreateExtrudeOperation([0.,0.,1.],3.)
+	#bodies2 = extrudeOperation.ApplyTo(squareBody)
+	#bodies.Add(bodies2)
+	#feature.Bodies = bodies2
+	#feature.MaterialType = MaterialTypeEnum.Freeze
+
 	builder = ExtAPI.DataModel.GeometryBuilder
-	squarePri = builder.Primitives.Sheet.CreatePolygon([0.,0.,0.,1.,0.,0.,1.,1.,0.,0.,1.,0.])
-	squareBody = squarePri.Generate()
-	extrudeOperation = builder.Operations.CreateExtrudeOperation([0.,0.,1.],2.)
-	bodies = extrudeOperation.ApplyTo(squareBody)
+	point1 = [0.,0.,0.]
+	point2 = [1.,2.,2.]
+	
+	primitive = ExtAPI.DataModel.GeometryBuilder.Primitives
+	box1 = primitive.Solid.CreateBox(point1, point2)
+	box1_generated = box1.Generate()
+	bodies.Add(box1_generated)
 	feature.Bodies = bodies
 	feature.MaterialType = MaterialTypeEnum.Freeze
 	
-	squarePri1 = builder.Primitives.Sheet.CreatePolygon([0.,0.,0.,0.5,0.,0.,0.5,0.5,0.,0.,0.5,0.])
-	squareBody1 = squarePri1.Generate()
-	extrudeOperation1 = builder.Operations.CreateSubtractOperation([0.,0.,1.,1.,1.,2.])
-	bodies1 = extrudeOperation1.ApplyTo(squareBody)
+	point3 = [-0.5,-1.,-1.]
+	point4 = [0.5,1.,1.]
+	box2 = primitive.Solid.CreateBox(point3, point4)
+	box2_generated = box2.Generate()
+	bodies1.Add(box2_generated)
 	feature.Bodies = bodies1
 	feature.MaterialType = MaterialTypeEnum.Freeze
-	#point1 = [0.,0.,0.]
-	#point2 = [1.,2.,2.]
-	#bodies = []
-	#primitive = ExtAPI.DataModel.GeometryBuilder.Primitives
-	#box1 = primitive.Solid.CreateBox(point1, point2)
-	#box1_generated = box1.Generate()
-	#bodies.Add(box1_generated)
-	#feature.Bodies = bodies
-	#feature.MaterialType = MaterialTypeEnum.Freeze
 	
-	#point3 = [0.,0.,0.]
-	#point4 = [0.5,1.,1.]
-	#box2 = primitive.Solid.CreateBox(point3, point4)
-	#box2_generated = box2.Generate()
-	#bodies.Add(box2_generated)
-	#feature.Bodies = bodies
-	#feature.MaterialType = MaterialTypeEnum.Freeze
+	#squarePri = builder.Primitives.Sheet.CreatePolygon([0.,0.,0.,0.5,0.,0.,0.5,0.5,0.,0.,0.5,0.])
+	#squareBody = squarePri.Generate()
+	extrudeOperation = builder.Operations.CreateSubtractOperation(bodies1)
+	bodies2 = extrudeOperation.ApplyTo(bodies)
+	feature.Bodies = bodies2
+	feature.MaterialType = MaterialTypeEnum.Freeze
 
 	#builder = ExtAPI.DataModel.GeometryBuilder
 	#width = 1.0
