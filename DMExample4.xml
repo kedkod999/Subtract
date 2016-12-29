@@ -20,14 +20,14 @@ Usage instructions:
 
 <extension version="1" name="DMExample4">
 	
-	<guid shortid="BOX_Extension">5107C33B-E123-4F55-8166-2ED2AA59B3B2</guid>
+	<guid shortid="BOX_Extension">b3ea0fe5-ca3c-453a-8978-bae673aa94a8</guid>
 	
 	<script src="DMExample4.py" />
 	
 	<interface context="DesignModeler">
 		<images>images</images>
-		<toolbar name="BOX_Extension" caption="Box Extension">
-			<entry name="BOX"  icon="box">
+		<toolbar name="Subtract" caption="Subtract">
+			<entry name="Subtract"  icon="Subtract">
 			<callbacks>
 				<onclick>createMyFeature</onclick>
 			</callbacks>
@@ -36,14 +36,18 @@ Usage instructions:
 	</interface>
 
 	<simdata context="DesignModeler">
-		<geometry name="BoxFeature" caption="Box" icon="box" version="1">
+		<geometry name="Subtract" caption="Subtract" icon="Subtract" version="1">
 			<callbacks>
-				<ongenerate>generateBoxGeometry</ongenerate>
-			</callbacks>
-			<!-- property Length can be defined as WB parameter here by adding attribute isparameter -->
-			<property name="Center" caption="Center" unit="Length" control="float" default="10 [m]" isparameter="true"></property>
-			<property name="Width" caption="Width" unit="Length" control="float" default="10 [m]" ></property> 
-			<property name="Thickness" caption="Height" unit="Length" control="float" default="1[m]" ></property>		
+				<ongenerate>generateSubtract</ongenerate>
+			</callbacks>	
+			<property name="Target"  caption= "Target" control="scoping"> <attributes selection_filter="body" /> </property>	
+			<property name="Instrument"  caption= "Instrument" control="scoping"> <attributes selection_filter="body" /> </property>
+			<property name="DeleteInstrument"  caption= "Delete instrument" control="select" default="Yes">
+				<attributes options="Yes, No"/>
+			</property>
+			<property name="Change"  caption= "Change side subtract" control="select" default="No">
+				<attributes options="Yes, No"/>
+			</property>
 		</geometry>
 	</simdata>
 
